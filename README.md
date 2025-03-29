@@ -11,6 +11,11 @@
 
 This project is a lightweight Flask web application designed to let users query a miRNA–gene targeting database. By entering two miRNA names and selecting a maximum score threshold, users receive a list of genes targeted by both miRNAs, sorted by the sum of targeting scores.
 
+## Demo
+
+Here’s a preview of the user interface:
+![image](https://github.com/user-attachments/assets/ee48468c-233d-473c-8937-228588479ec6)
+
 ## Features
 
 - Interactive form for user input (miRNA names + targeting score)
