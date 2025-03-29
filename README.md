@@ -1,5 +1,3 @@
-# masters
-
 # miRNA Target Query Flask App
 
 **Project:** Web application to query miRNA gene targets from a MariaDB database  
