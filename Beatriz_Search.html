@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>miRNA Target Search</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff0f6;
+            color: #4a235a;
+            margin: 2em;
+        }
+
+        h1 {
+            color: #b1459c;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        .error {
+            color: #ff4d6d;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+
+        form {
+            background-color: #f8e8f0;
+            padding: 1.2em;
+            border-radius: 12px;
+            box-shadow: 2px 2px 10px #e0b0d5;
+            margin-bottom: 2em;
+        }
+
+        label {
+            display: inline-block;
+            width: 90px;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+        }
+
+        input, select {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border-radius: 8px;
+            border: 1px solid #d3a4cc;
+            background-color: #fff6fa;
+        }
+
+        button {
+            padding: 0.6em 1.2em;
+            background-color: #d291bc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c267a5;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            background-color: #fff6fa;
+        }
+
+        th, td {
+            border: 1px solid #e6cce2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f1d5ec;
+        }
+
+        .summary {
+            font-weight: bold;
+            background-color: #fdf1f7;
+            padding: 0.8em;
+            border-left: 5px solid #d291bc;
+        }
+
+        em {
+            color: #b1459c;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>miRNA Target Finder 🧬</h1>
+
+    <p>
+        Wanna know which genes are targeted by two miRNAs at once? Just type in the names below 💫  
+        Try <em>hsa-miR-3910</em> and <em>hsa-miR-4711-3p</em> to see it in action!
+    </p>
+
+    {% if error_msg %}
+        <p class="error">{{ error_msg }}</p>
+    {% endif %}
+
+    <form method="get" action="">
+        <div>
+            <label for="mirna1">miRNA 1:</label>
+            <input type="text" id="mirna1" name="mirna1" value="{{ mirna1 or '' }}">
+        </div>
+
+        <div>
+            <label for="mirna2">miRNA 2:</label>
+            <input type="text" id="mirna2" name="mirna2" value="{{ mirna2 or '' }}">
+        </div>
+
+        <div>
+            <label for="max_score">Max score:</label>
+            <select id="max_score" name="max_score">
+                {% for option in ["-0.1", "-0.2", "-0.3", "-0.4", "-0.5", "-0.6", "-0.7"] %}
+                    <option value="{{ option }}" {% if option == max_score %}selected{% endif %}>score ≤ {{ option }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">💖 Search</button>
+    </form>
+
+    {% if summary %}
+        <div class="summary">{{ summary }}</div>
+    {% endif %}
+
+    {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Gene ID</th>
+                    <th>Gene Name</th>
+                    <th>{{ mirna1 }} score</th>
+                    <th>{{ mirna2 }} score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+</body>
+</html>
