@@ -40,3 +40,8 @@ The app is useful for exploring co-targeting patterns in gene regulation by miRN
 3. The backend checks miRNA validity and runs a parameterized query.
 4. A table of co-targeted genes is returned (if any), with scores for each miRNA.
 5. A summary statement reports the query criteria and number of hits.
+
+## Notes
+
+- Developed for the BF768 course at Boston University.
+- Hosted on the university server for class evaluation.
